@@ -1,37 +1,44 @@
 package main
 
 import (
-	"github.com/labstack/echo/v4/middleware"
-	"github.com/labstack/echo/v4"
+    "html/template"
+    "io"
+
+    "github.com/labstack/echo/v4"
+    "github.com/labstack/echo/v4/middleware"
 )
 
-type Templates struct {
-	template *template.Template
-}
-
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	return t.template.ExecutTemplate(w, name, data)
+type Template struct {
+    tmpl *template.Template
 }
 
 func newTemplate() *Template {
-	return &Templates{
-		templates: template.Must(template.ParseGlob("views/*.html")),
+    return &Template{
+        tmpl: template.Must(template.ParseGlob("views/*.html")),
+    }
+}
 
-	}
+func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+    return t.tmpl.ExecuteTemplate(w, name, data)
+}
+
+type Count struct {
+    Count int
 }
 
 func main() {
 
-	e := echo.New()
-	count := Count { Count: 0}
+    e := echo.New()
 
-	e.Renderer = newTemplate()
-	e.Use(middleware.Logger())
+    count := Count{Count: 0}
 
-	e.GET("/", func(c echo.Context) error {
-		count.Count++
-		return c.Render(200, "index", count)
-	});
+    e.Renderer = newTemplate()
+    e.Use(middleware.Logger())
 
-	e.Logger.Fatal(e.Start(":1234"))
+    e.GET("/", func(c echo.Context) error {
+        count.Count++
+        return c.Render(200, "index.html", count)
+    });
+
+    e.Logger.Fatal(e.Start(":42069"))
 }
