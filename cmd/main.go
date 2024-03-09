@@ -23,15 +23,15 @@ func newTemplate() *Template {
 func main() {
 
 	e := echo.New()
+	count := Count { Count: 0}
+
+	e.Renderer = newTemplate()
 	e.Use(middleware.Logger())
 
-	count : Count { Count: 0}
-	e.Renderer = newTemplate()
+	e.GET("/", func(c echo.Context) error {
+		count.Count++
+		return c.Render(200, "index", count)
+	});
 
-	e.GET("/"), func(c echo.Context) error {
-		 count.Count++
-		 return c.Render(200, "index", count)
-	})
-
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(":1234"))
 }
