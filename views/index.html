@@ -64,7 +64,9 @@
     Name: <span>{{ .Name }}</span>
     Email: <span>{{ .Email }}</span>
 
-    <img src="/images/bars.svg" alt="loading" style="width: 1rem">
+    <div id=contact-indicator-{{ .Id }} class="htmx-indicator">
+        <img src="/images/bars.svg" alt="loading" style="width: 1rem">
+    </div>
 </div>
 {{ end }}
 
