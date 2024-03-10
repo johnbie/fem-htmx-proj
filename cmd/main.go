@@ -27,12 +27,16 @@ type Count struct {
 }
 
 type Contact struct {
+    Id int
     Name string
     Email string
 }
 
+var id = 0
 func newContact(name, email string) Contact {
+    id++
     return Contact {
+        Id: id,
         Name: name,
         Email: email,
     }
