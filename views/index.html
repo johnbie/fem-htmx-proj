@@ -13,7 +13,7 @@
 {{ end }}
 
 {{ block "form" . }}
-<form hx-swap="outerHTML" hx-target="#contacts" hx-post="/contacts">
+<form hx-swap="outerHTML" hx-post="/contacts">
     name: <input 
 	{{ if .Values.name }} value="{{ .Values.name }}" {{ end }}
         type="text" name="name" />
