@@ -3,6 +3,7 @@ package main
 import (
     "html/template"
     "io"
+    "time"
     "strconv"
 
     "github.com/labstack/echo/v4"
@@ -135,6 +136,7 @@ func main() {
     });
 
     e.DELETE("/contacts/:id", func(c echo.Context) error {
+        time.Sleep(3 * time.Second)
         idStr := c.Param("id")
         id, err := strconv.Atoi(idStr)
         if err != nil {
