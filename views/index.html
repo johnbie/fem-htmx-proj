@@ -8,6 +8,18 @@
         {{ template "form" .Form }}
         <hr />
         {{ template "display" .Data }}
+
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", (event) => {
+                document.body.addEventListener('htmx:beforeSwap', function(evt) {
+                    if (evt.detail.xhr.status === 422) {
+                        console.log("setting status to paint");
+                        evt.detail.shouldSwap = true;
+		        evt.detail.isError = false;
+		    }
+                });
+            });
+	</script>
     </body>
 </html>
 {{ end }}
