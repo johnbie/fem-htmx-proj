@@ -112,7 +112,7 @@ func main() {
         }
 	page.Data.Contacts = append(page.Data.Contacts, newContact(name, email))
 
-	return c.Render(200, "display", page)
+	return c.Render(200, "display", page.Data)
     });
 
     e.Logger.Fatal(e.Start(":42069"))

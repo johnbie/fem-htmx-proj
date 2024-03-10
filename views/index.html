@@ -43,11 +43,15 @@
 
 {{ block "display" . }}
 <div id="contacts" style="display: flex; flex-direction: column;">
-{{ range .Contacts }}
+    {{ range .Contacts }}
+        {{ template "contact" . }}
+    {{ end }}
+</div>
+{{ end }}
+
+{{ block "contact" . }}
 <div>
     Name: <span>{{ .Name }}</span>
     Email: <span>{{ .Email }}</span>
-</div>
-{{ end }}
 </div>
 {{ end }}
